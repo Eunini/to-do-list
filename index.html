@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b6f8d1705f.js" crossorigin="anonymous"></script>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+    box-sizing: border-box;
+    position: relative;
+}
+.container {
+    padding: 10px;
+    width: 100%;
+    min-height: 100vh;
+    background: rgb(209,168,222);
+    background: linear-gradient(0deg, rgba(209,168,222,1) 17%, rgba(253,183,255,1) 32%, rgba(212,182,236,1) 56%, rgba(243,160,255,1) 85%);
+}
+.container .to-do {
+    z-index: 1;
+    border-radius: 10px;
+    max-height: 100vh;
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    margin: 0 auto;
+}
+.to-do h2{
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.to-do img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+.input {
+    display: flex;
+    margin: 10px;
+}
+input {
+    display: none;
+    border-radius: 20px;
+    margin: 20px; 
+    border: none;
+    outline: none;
+    background: #eeeeee;
+    height: 200px;
+    width: 90%;
+    transition: 0.7s ease; 
+    z-index: 2;
+}
+input::placeholder {
+    color: #555;
+    font-size: 17px;
+}
+a {
+    font-size: 16px;
+    text-decoration: none;
+    text-align: right;
+    margin-left: 420px;
+    display: none;
+}
+#plus {
+    width: 50px;
+    height: 50px;
+    outline: none;
+    display: flex;
+    margin: 20px auto;
+    border-radius: 50%;
+    border: none;
+    background: #ce359b;
+    padding: 15px;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+ul li {
+    list-style: none;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 15px 8px 12px 50px;
+    font-size: 17px;
+    user-select: none;
+    position: relative;
+    cursor: pointer;
+    height: 70px;
+    width: 90%;
+    background: #eeeeee;
+    align-items: center;
+    border-radius: 20px;
+}
+ul li::before {
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(images/unchecked.png);
+    background-size: cover;
+    background-position: center;
+    top: 12px;
+    left: 15px;
+}
+ul li.checked {
+    color: #555;
+    text-decoration: line-through;
+}
+ul li.checked::before {
+    background-image: url(images/checked.png);
+}
+span {
+    right: 0;
+    top: 5px;
+    color: red;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background: #edeef0;
+}
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="to-do">
+            <h2>To-Do List <img src="images/icon.png" alt="myicon" id="cancel"></h2>
+            <ul id="list-container">
+                <li>Welcome to To do</li>
+                <li>create your to-dos by typing</li>
+                <!-- <li>Task 2</li>
+                <li>Task 3</li>  -->
+            </ul>
+            <div class="input">
+                <input type="text" placeholder="Enter your task" id="input-text">
+            </div>
+            <a href="#" onclick="done()" id="done">Done</a>
+            <i class="fa-solid fa-plus" onclick="addTask()" id="plus"></i>
+        </div>
+    </div>
+<script>
+    let inputBox = document.getElementById("input-text");
+    let listCont = document.getElementById("list-container");
+    let done = document.getElementById("done");
+   
+    function addTask() {
+        inputBox.style.display = 'block';
+        done.style.display = 'block';
+        let cancel = document.createElement("span");
+        span.innerHTML ='\u00d7';
+        li.appendChild(li);
+    }
+
+    listCont.addEventListener("click", function(e){
+        if(e.target.targetName === "li") {
+            e.target.classList.toggle("checked");
+            saveData()
+        }
+        else if(e.target.targetName === 'span') {
+            e.target.parentElement.remove();
+            saveData()
+        }
+    }, false);
+    
+    function done() {
+        if(inputBox.value === ''){
+            let ptag = document.createElement("p");
+            ptag.textContent = "please fill in a to-do";
+            inputBox.appendChild(ptag); 
+        }
+        else {
+            inputBox.style.display = 'none';
+            done.style.display = 'none';
+            let li = document.createElement("li");
+            li.innerHTML = inputBox.value;
+            listCont.appendChild(li)
+            saveData()
+        }
+    }
+
+    function saveData() {
+        localStorage.setItem("data", listCont.innerHTML); // stores all the content in the container as 'data' in the browser
+    }
+
+    function showTask() {
+        listCont.innerHTML = localStorage.getItem('data');  //to give all the contents in the browser named 'data'
+    }
+    showTask();
+    </script>
+</body>
+</html>
