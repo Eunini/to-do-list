@@ -146,18 +146,18 @@ span {
             <div class="input">
                 <input type="text" placeholder="Enter your task" id="input-text">
             </div>
-            <a href="#" onclick="done()" id="done">Done</a>
+            <a href="#" onclick="done()" id="doNe">Done</a>
             <i class="fa-solid fa-plus" onclick="addTask()" id="plus"></i>
         </div>
     </div>
 <script>
     let inputBox = document.getElementById("input-text");
     let listCont = document.getElementById("list-container");
-    let done = document.getElementById("done");
+    let doNe = document.getElementById("done");
    
     function addTask() {
         inputBox.style.display = 'block';
-        done.style.display = 'block';
+        doNe.style.display = 'block';
         let cancel = document.createElement("span");
         span.innerHTML ='\u00d7';
         li.appendChild(li);
@@ -182,7 +182,7 @@ span {
         }
         else {
             inputBox.style.display = 'none';
-            done.style.display = 'none';
+            doNe.style.display = 'none';
             let li = document.createElement("li");
             li.innerHTML = inputBox.value;
             listCont.appendChild(li)
